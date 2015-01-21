@@ -10,5 +10,7 @@
 
 @implementation MBRMovie
 
-
++(NSDictionary *)JSONKeyPathsByPropertyKey {
+    return @{};
+}
 @end

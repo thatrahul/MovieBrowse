@@ -18,8 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray* movies = [self fetchMovies];
-    self.movies = movies;
+    [self fetchMovies];
+    //self.movies = movies;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -38,10 +38,20 @@
     [self.tableView reloadData];
 }
 
-// fetch the movies using the fetcher
--(NSArray*) fetchMovies {
+-(void) fetchMovies {
     MBRRTMovieFetcher *fetcher = [[MBRRTMovieFetcher alloc] init];
-    return fetcher.fetchMovies;
+    dispatch_queue_t fetchq = dispatch_queue_create("moviefetch", NULL);
+    dispatch_async(fetchq, ^{
+        [fetcher fetchMovies:@"thomas" success:^(NSArray* movieList){
+            dispatch_async(dispatch_get_main_queue(),^ {
+                self.movies = movieList;
+            });
+            
+        } failure:^(NSError *error) {
+            NSLog(@"Something really bad happened");
+            
+        }] ;
+    });
 }
 
 

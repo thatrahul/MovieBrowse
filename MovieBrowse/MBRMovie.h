@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Mantle/Mantle.h>
+@class MTLModel;
 
-@interface MBRMovie : NSObject
+@interface MBRMovie : MTLModel<MTLJSONSerializing>
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSString* rating;
 @property (nonatomic) NSUInteger releaseYear;

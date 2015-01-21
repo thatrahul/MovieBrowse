@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+@class MBRTWSearchInfo;
 
 @interface MBRRTMovieFetcher : NSObject
 
--(NSArray*) fetchMovies;
+-(void) fetchMovies:(NSString*)queryString success:(void(^)(NSArray *movieList))completion failure:(void(^)(NSError *error)) failure;
+
 
 @end
